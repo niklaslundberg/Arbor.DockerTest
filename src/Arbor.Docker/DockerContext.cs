@@ -99,7 +99,7 @@ namespace Arbor.Docker
                         DockerHelper.RunDockerCommandsAsync(containerArgs.CombinedArgs(), logger, cancellationToken))
                 .ToImmutableArray();
 
-            _ = await Task.WhenAll(tasks.ToArray());
+            await Task.WhenAll(tasks.ToArray());
         }
     }
 }

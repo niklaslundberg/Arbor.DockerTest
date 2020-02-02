@@ -10,9 +10,9 @@ namespace Arbor.Docker
         public ContainerArgs(
             [NotNull] string imageName,
             [NotNull] string containerName,
-            IDictionary<int, int> ports = null,
-            IDictionary<string, string> environmentVariables = null,
-            string[] args = null)
+            IDictionary<int, int>? ports = null,
+            IDictionary<string, string>? environmentVariables = null,
+            string[]? args = null)
         {
             if (string.IsNullOrWhiteSpace(imageName))
             {

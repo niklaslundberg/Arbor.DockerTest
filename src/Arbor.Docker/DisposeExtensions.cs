@@ -7,7 +7,7 @@ namespace Arbor.Docker
 {
     public static class DisposeExtensions
     {
-        public static async Task SafeDisposeAsync(this object instance, ILogger logger = default)
+        public static async Task SafeDisposeAsync(this object instance, ILogger? logger = default)
         {
             logger ??= Logger.None ?? throw new ArgumentException("Missing logger");
 
