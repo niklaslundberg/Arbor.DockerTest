@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29503.13
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Arbor.DockerTest", "Arbor.DockerTest\Arbor.DockerTest.csproj", "{51F05A76-5C7E-4DB4-A523-A06786EAD76C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Arbor.DockerTest", "src\Arbor.DockerTest\Arbor.DockerTest.csproj", "{51F05A76-5C7E-4DB4-A523-A06786EAD76C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Arbor.DockerTest.Tests.Integration", "Arbor.DockerTest.Tests.Integration\Arbor.DockerTest.Tests.Integration.csproj", "{88E5BF7F-34EC-43CF-B6B2-B43233AF31C4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Arbor.DockerTest.Tests.Integration", "src\Arbor.DockerTest.Tests.Integration\Arbor.DockerTest.Tests.Integration.csproj", "{88E5BF7F-34EC-43CF-B6B2-B43233AF31C4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{88B7793B-E601-4526-906E-CEE63F7AFCA1}"
 	ProjectSection(SolutionItems) = preProject
@@ -19,7 +19,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		version.json = version.json
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arbor.Docker", "Arbor.Docker\Arbor.Docker.csproj", "{7856411C-5B12-4DDD-8982-AB74FFB40EF7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arbor.Docker", "src\Arbor.Docker\Arbor.Docker.csproj", "{7856411C-5B12-4DDD-8982-AB74FFB40EF7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
