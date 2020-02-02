@@ -2,6 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageLicenseExpression>mit</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/niklaslundberg/Arbor.Docker</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/niklaslundberg/Arbor.Docker</RepositoryUrl>
+    <Copyright>Niklas Lundberg</Copyright>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,7 +1,7 @@
 ﻿using Serilog;
 using Xunit.Abstractions;
 
-namespace Arbor.DockerTest
+namespace Arbor.Docker.Xunit
 {
     public static class SerilogXunitExtensions
     {

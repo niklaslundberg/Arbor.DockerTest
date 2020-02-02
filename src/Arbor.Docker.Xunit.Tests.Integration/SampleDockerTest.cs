@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Arbor.Docker;
 using MailKit.Net.Smtp;
 using MimeKit;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace Arbor.DockerTest.Tests.Integration
+namespace Arbor.Docker.Xunit.Tests.Integration
 {
     public class SampleDockerTest : DockerTest
     {

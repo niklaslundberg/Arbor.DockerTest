@@ -1303,7 +1303,7 @@
           "System.Collections.Immutable": "1.7.0"
         }
       },
-      "arbor.dockertest": {
+      "arbor.docker.xunit": {
         "type": "Project",
         "dependencies": {
           "Arbor.Docker": "1.0.0",

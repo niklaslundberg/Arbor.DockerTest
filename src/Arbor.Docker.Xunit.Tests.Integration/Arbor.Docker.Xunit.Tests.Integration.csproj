@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Arbor.DockerTest\Arbor.DockerTest.csproj" />
+    <ProjectReference Include="..\Arbor.Docker.Xunit\Arbor.Docker.Xunit.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Arbor.Docker;
 using Serilog;
 using Xunit;
 
-namespace Arbor.DockerTest
+namespace Arbor.Docker.Xunit
 {
     public abstract class DockerTest : IAsyncLifetime
     {
