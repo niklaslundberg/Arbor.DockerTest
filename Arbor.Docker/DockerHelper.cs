@@ -16,14 +16,14 @@ namespace Arbor.Docker
             string process = @"C:\Program Files\Docker\Docker\Resources\bin\docker.exe";
 
             var exitCode = await ProcessRunner.ExecuteProcessAsync(
-                               process,
-                               args,
-                               (message, category) => logger.Information("{Message}", message),
-                               (message, category) => logger.Error("{Message}", message),
-                               debugAction: (message, category) => logger.Debug("{Message}", message),
-                               verboseAction: (message, category) => logger.Verbose("{Message}", message),
-                               toolAction: (message, category) => logger.Debug("{Message}", message),
-                               cancellationToken: token);
+                process,
+                args,
+                (message, category) => logger.Information("{Message}", message),
+                (message, category) => logger.Error("{Message}", message),
+                debugAction: (message, category) => logger.Debug("{Message}", message),
+                verboseAction: (message, category) => logger.Verbose("{Message}", message),
+                toolAction: (message, category) => logger.Debug("{Message}", message),
+                cancellationToken: token);
 
             if (!exitCode.IsSuccess)
             {

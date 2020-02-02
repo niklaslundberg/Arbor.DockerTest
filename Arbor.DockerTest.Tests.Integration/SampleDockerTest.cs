@@ -2,9 +2,7 @@
 using System.Threading.Tasks;
 using Arbor.Docker;
 using MailKit.Net.Smtp;
-
 using MimeKit;
-
 using Xunit;
 using Xunit.Abstractions;
 
@@ -17,15 +15,12 @@ namespace Arbor.DockerTest.Tests.Integration
         {
         }
 
-        [Fact]
-        public async Task Do() => await SendMail();
-
         protected override async IAsyncEnumerable<ContainerArgs> AddContainersAsync()
         {
             var smtp4Dev = new ContainerArgs(
                 "rnwood/smtp4dev:linux-amd64-v3",
                 "smtp4devtest",
-                new Dictionary<int, int> { [3125] = 80, [2526] = 25 }
+                new Dictionary<int, int> {[3125] = 80, [2526] = 25}
             );
 
             yield return smtp4Dev;
@@ -38,7 +33,7 @@ namespace Arbor.DockerTest.Tests.Integration
             message.To.Add(new MailboxAddress("test@test.local"));
             message.Subject = "testsubject";
 
-            message.Body = new TextPart("plain") { Text = "test" };
+            message.Body = new TextPart("plain") {Text = "test"};
 
             using var client = new SmtpClient();
             await client.ConnectAsync("localhost", 2526, false);
@@ -46,5 +41,8 @@ namespace Arbor.DockerTest.Tests.Integration
             await client.SendAsync(message);
             await client.DisconnectAsync(true);
         }
+
+        [Fact]
+        public async Task Do() => await SendMail();
     }
 }

@@ -44,7 +44,7 @@ namespace Arbor.Docker
 
         public ImmutableArray<string> CombinedArgs()
         {
-            var args = new List<string> { "run", "-d" };
+            var args = new List<string> {"run", "-d"};
 
             foreach (var keyValuePair in Ports)
             {

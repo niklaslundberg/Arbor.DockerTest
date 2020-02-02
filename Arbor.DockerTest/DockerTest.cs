@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Arbor.Docker;
 using Serilog;
-
 using Xunit;
 
 namespace Arbor.DockerTest

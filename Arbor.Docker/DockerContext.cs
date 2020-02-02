@@ -30,19 +30,6 @@ namespace Arbor.Docker
 
         public CancellationTokenSource CancellationTokenSource { get; }
 
-        public static async Task<DockerContext> CreateContextAsync(
-            IReadOnlyCollection<ContainerArgs> args,
-            ILogger logger)
-        {
-            var cancellationTokenSource = new CancellationTokenSource();
-
-            var dockerTask = Task.Run(
-                () => StartAllDockerContainers(args, logger, cancellationTokenSource.Token),
-                cancellationTokenSource.Token);
-
-            return new DockerContext(dockerTask, args, logger, cancellationTokenSource);
-        }
-
         public async ValueTask DisposeAsync()
         {
             CancellationTokenSource?.Cancel(false);
@@ -64,15 +51,28 @@ namespace Arbor.Docker
             CancellationTokenSource?.Dispose();
         }
 
+        public static async Task<DockerContext> CreateContextAsync(
+            IReadOnlyCollection<ContainerArgs> args,
+            ILogger logger)
+        {
+            var cancellationTokenSource = new CancellationTokenSource();
+
+            var dockerTask = Task.Run(
+                () => StartAllDockerContainers(args, logger, cancellationTokenSource.Token),
+                cancellationTokenSource.Token);
+
+            return new DockerContext(dockerTask, args, logger, cancellationTokenSource);
+        }
+
         private static async Task ShutDownAndRemoveAsync(string containerName, ILogger logger)
         {
-            var args = new List<string> { "stop", containerName };
+            var args = new List<string> {"stop", containerName};
 
             var stopExitCode = await DockerHelper.RunDockerCommandsAsync(args, logger);
 
             logger.Information("Stop exit code: {StopExitCode}", stopExitCode);
 
-            var removeArgs = new List<string> { "rm", containerName };
+            var removeArgs = new List<string> {"rm", containerName};
 
             var removeExitCode = await DockerHelper.RunDockerCommandsAsync(removeArgs, logger);
 

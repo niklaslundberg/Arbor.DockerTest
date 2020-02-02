@@ -1,5 +1,4 @@
 ﻿using Serilog;
-
 using Xunit.Abstractions;
 
 namespace Arbor.DockerTest
