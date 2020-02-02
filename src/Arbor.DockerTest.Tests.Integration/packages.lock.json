@@ -35,8 +35,8 @@
       },
       "Arbor.Processing": {
         "type": "Transitive",
-        "resolved": "0.3.0",
-        "contentHash": "WUJipRneCHyYSwyEx/KuItzBj+egFJ1KYi9CX8tWO3+Oqp4ZwA3KtEh+RWs7tdclG3oUSm5bcQ/MRP9Fbc4+EA=="
+        "resolved": "0.4.0",
+        "contentHash": "YIT8mzzmVcoosaAlF7BpzfQwbX7GLtgvEygaTcEySf9MrqXasaPTph8c5mTDiS55y30uLZFTDKR+GUawNTXZKQ=="
       },
       "JetBrains.Annotations": {
         "type": "Transitive",
@@ -1297,7 +1297,7 @@
       "arbor.docker": {
         "type": "Project",
         "dependencies": {
-          "Arbor.Processing": "0.3.0",
+          "Arbor.Processing": "0.4.0",
           "JetBrains.Annotations": "2019.1.3",
           "Serilog": "2.9.0",
           "System.Collections.Immutable": "1.7.0"
@@ -1307,7 +1307,7 @@
         "type": "Project",
         "dependencies": {
           "Arbor.Docker": "1.0.0",
-          "Arbor.Processing": "0.3.0",
+          "Arbor.Processing": "0.4.0",
           "JetBrains.Annotations": "2019.1.3",
           "Serilog": "2.9.0",
           "Serilog.Sinks.XUnit": "1.0.21",

@@ -4,9 +4,9 @@
     ".NETStandard,Version=v2.1": {
       "Arbor.Processing": {
         "type": "Direct",
-        "requested": "[0.3.0, )",
-        "resolved": "0.3.0",
-        "contentHash": "WUJipRneCHyYSwyEx/KuItzBj+egFJ1KYi9CX8tWO3+Oqp4ZwA3KtEh+RWs7tdclG3oUSm5bcQ/MRP9Fbc4+EA=="
+        "requested": "[0.4.0, )",
+        "resolved": "0.4.0",
+        "contentHash": "YIT8mzzmVcoosaAlF7BpzfQwbX7GLtgvEygaTcEySf9MrqXasaPTph8c5mTDiS55y30uLZFTDKR+GUawNTXZKQ=="
       },
       "JetBrains.Annotations": {
         "type": "Direct",
