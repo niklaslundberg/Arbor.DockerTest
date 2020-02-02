@@ -5,7 +5,7 @@ using Serilog.Core;
 
 namespace Arbor.Docker
 {
-    public static class DisposeExtensions
+    internal static class DisposeExtensions
     {
         public static async Task SafeDisposeAsync(this object instance, ILogger? logger = default)
         {

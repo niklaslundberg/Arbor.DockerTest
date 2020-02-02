@@ -96,7 +96,7 @@ namespace Arbor.Docker
 
             var tasks = containers.Select(
                     containerArgs =>
-                        DockerHelper.RunDockerCommandsAsync(containerArgs.CombinedArgs(), logger, cancellationToken))
+                        DockerHelper.RunDockerCommandsAsync(containerArgs.CombinedArgs(), logger, null, cancellationToken))
                 .ToImmutableArray();
 
             await Task.WhenAll(tasks.ToArray());

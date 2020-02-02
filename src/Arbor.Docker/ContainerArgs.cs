@@ -7,12 +7,15 @@ namespace Arbor.Docker
 {
     public class ContainerArgs
     {
+        private readonly bool _useExplicitPlatform;
+
         public ContainerArgs(
             [NotNull] string imageName,
             [NotNull] string containerName,
             IDictionary<int, int>? ports = null,
             IDictionary<string, string>? environmentVariables = null,
-            string[]? args = null)
+            string[]? args = null,
+            bool useExplicitPlatform = false)
         {
             if (string.IsNullOrWhiteSpace(imageName))
             {
@@ -23,6 +26,8 @@ namespace Arbor.Docker
             {
                 throw new ArgumentException("Value cannot be null or whitespace.", nameof(containerName));
             }
+
+            _useExplicitPlatform = useExplicitPlatform;
 
             ImageName = imageName;
             ContainerName = containerName;
@@ -66,7 +71,10 @@ namespace Arbor.Docker
             args.Add("--name");
             args.Add(ContainerName);
 
-            args.Add("--platform=linux");
+            if (_useExplicitPlatform)
+            {
+                args.Add("--platform=linux");
+            }
 
             args.Add(ImageName);
 

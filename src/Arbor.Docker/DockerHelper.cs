@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using Arbor.Processing;
@@ -11,12 +13,18 @@ namespace Arbor.Docker
         public static async Task<ExitCode> RunDockerCommandsAsync(
             IEnumerable<string> args,
             ILogger logger,
+            string? dockerExePath = null,
             CancellationToken token = default)
         {
-            string process = @"C:\Program Files\Docker\Docker\Resources\bin\docker.exe";
+            dockerExePath ??= @"C:\Program Files\Docker\Docker\Resources\bin\docker.exe";
+
+            if (!File.Exists(dockerExePath))
+            {
+                throw new InvalidOperationException($"The docker exe file '{dockerExePath}' does not exist");
+            }
 
             var exitCode = await ProcessRunner.ExecuteProcessAsync(
-                process,
+                dockerExePath,
                 args,
                 (message, category) => logger.Information("{Message}", message),
                 (message, category) => logger.Error("{Message}", message),
