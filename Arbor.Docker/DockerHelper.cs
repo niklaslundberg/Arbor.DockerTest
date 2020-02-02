@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-
 using Arbor.Processing;
-
 using Serilog;
 
-namespace Arbor.DockerTest
+namespace Arbor.Docker
 {
     public static class DockerHelper
     {

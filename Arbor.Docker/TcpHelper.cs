@@ -3,7 +3,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using System.Net.NetworkInformation;
 
-namespace Arbor.DockerTest
+namespace Arbor.Docker
 {
     public static class TcpHelper
     {

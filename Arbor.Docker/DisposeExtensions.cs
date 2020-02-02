@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
-
 using Serilog;
 using Serilog.Core;
 
-namespace Arbor.DockerTest
+namespace Arbor.Docker
 {
     public static class DisposeExtensions
     {

@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
-
 using JetBrains.Annotations;
 
-namespace Arbor.DockerTest
+namespace Arbor.Docker
 {
     public class ContainerArgs
     {
