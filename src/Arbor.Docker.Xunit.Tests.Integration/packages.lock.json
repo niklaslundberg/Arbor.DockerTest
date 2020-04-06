@@ -4,11 +4,11 @@
     ".NETCoreApp,Version=v3.1": {
       "MailKit": {
         "type": "Direct",
-        "requested": "[2.5.0, )",
-        "resolved": "2.5.0",
-        "contentHash": "tRkBKy8+kDIMW6JFWexZiSfy03S/H5ZgLI2XGL+AV5WLH9RHIo+HkTd7WVLA1De878ie9VKj2nMk6FTss7Bw7Q==",
+        "requested": "[2.6.0, )",
+        "resolved": "2.6.0",
+        "contentHash": "fY2ulWfn5xzulQfqTW66pLOrL26Puzmhl+VsXuqrVBhv5dWFwwKerxQM4HmMwr5Pd/ak9/5xSiFhIeXeD+HC2w==",
         "dependencies": {
-          "MimeKit": "2.5.0",
+          "MimeKit": "2.6.0",
           "System.Net.NameResolution": "4.3.0",
           "System.Net.Security": "4.3.2",
           "System.Runtime.Serialization.Primitives": "4.3.0"
@@ -16,12 +16,12 @@
       },
       "Microsoft.NET.Test.Sdk": {
         "type": "Direct",
-        "requested": "[16.4.0, )",
-        "resolved": "16.4.0",
-        "contentHash": "gjjqS3rCzg4DrSQq4YwJwUUvc49HtXpXrZkW9fu5VG+K4X+Ztn4+UzolyML7wPnl/EAIufk4hu628bJB4WtpFg==",
+        "requested": "[16.5.0, )",
+        "resolved": "16.5.0",
+        "contentHash": "yHZOhVSPuGqgHi+KhHiAZqNY08avkQraXKvgKgDU8c/ztmGzw7gmukkv49EaTq6T3xmp4XroWk3gAlbJHMxl8w==",
         "dependencies": {
-          "Microsoft.CodeCoverage": "16.4.0",
-          "Microsoft.TestPlatform.TestHost": "16.4.0"
+          "Microsoft.CodeCoverage": "16.5.0",
+          "Microsoft.TestPlatform.TestHost": "16.5.0"
         }
       },
       "xunit.runner.visualstudio": {
@@ -35,8 +35,8 @@
       },
       "Arbor.Processing": {
         "type": "Transitive",
-        "resolved": "0.4.0",
-        "contentHash": "YIT8mzzmVcoosaAlF7BpzfQwbX7GLtgvEygaTcEySf9MrqXasaPTph8c5mTDiS55y30uLZFTDKR+GUawNTXZKQ=="
+        "resolved": "0.5.1-build.0",
+        "contentHash": "BjQQZjQhYtd6ycavk5G5uivn9CEdJawLU6yoKIpgBYC/8IH5s8648Kp0ztvoznzK4Z5m7N01ttZKabSx+4Ytgg=="
       },
       "JetBrains.Annotations": {
         "type": "Transitive",
@@ -45,8 +45,8 @@
       },
       "Microsoft.CodeCoverage": {
         "type": "Transitive",
-        "resolved": "16.4.0",
-        "contentHash": "qb7PMVZMAY5iUCvB/kDUEt9xqazWKZoKY/sGpAJO4VtwgN5IcEgipCu3n0i1GPCwGbWVL6k4a8a9F+FqmADJng=="
+        "resolved": "16.5.0",
+        "contentHash": "PM5YLtyN45EyUGePJpaNogndlaQPrMgQQXHKMhMESC6KfSVvt+j7+dxBi8NYC6X6dZVysf7ngwhSW3wwvPJRSQ=="
       },
       "Microsoft.CSharp": {
         "type": "Transitive",
@@ -83,18 +83,18 @@
       },
       "Microsoft.TestPlatform.ObjectModel": {
         "type": "Transitive",
-        "resolved": "16.4.0",
-        "contentHash": "4geKywSUJHHrfBTr1wJXUVWP0Vx1X03oFQAdZdGa8jK8p5MSwsJ4Vd0/mqN0dB2YXaIXIhDT94ti5WQ1KZ4jdw==",
+        "resolved": "16.5.0",
+        "contentHash": "NnLFxmFBCAS6kye2JFszD5WKgj4Zve5KX/R0mhYwh6BVnSeybI2unRnjEPtLyY3CAVhwrY4bh/8LNFtslAcGZg==",
         "dependencies": {
           "NuGet.Frameworks": "5.0.0"
         }
       },
       "Microsoft.TestPlatform.TestHost": {
         "type": "Transitive",
-        "resolved": "16.4.0",
-        "contentHash": "tMlz3uc7VUZSYYslyVOVXH40KexTptZMAi8gIE+5w+SIt8I0qLPObpqX6QVLWszPr7sxX4WAKTiFgqgBB1MxjA==",
+        "resolved": "16.5.0",
+        "contentHash": "ytGymboQIvjNX5pLC0yp/Bz9sGDHqSnLQgBRtd4VrqOUgKmmcfxMYZ6p0TBZgAT1oijdC6xqUZ7rl8mbaaXTJw==",
         "dependencies": {
-          "Microsoft.TestPlatform.ObjectModel": "16.4.0",
+          "Microsoft.TestPlatform.ObjectModel": "16.5.0",
           "Newtonsoft.Json": "9.0.1"
         }
       },
@@ -110,8 +110,8 @@
       },
       "MimeKit": {
         "type": "Transitive",
-        "resolved": "2.5.0",
-        "contentHash": "+addEogAAYVU4WU7nI7gcd9jsPeLyCu4N39gz4TrIwbKQAzWpKp2ua74N0xY4ixlkKt28aJ/y4Jmnmwi8lPo0A==",
+        "resolved": "2.6.0",
+        "contentHash": "254R07ICLw0mIEhXEcYsALGF7Tgt8mAOfD7lcui1XXBdQGbpj5WFOzx9TojSMPBt2ZRBfolWhoSC9tnTVY7wRw==",
         "dependencies": {
           "Portable.BouncyCastle": "1.8.5",
           "System.Data.Common": "4.3.0",
@@ -1297,7 +1297,7 @@
       "arbor.docker": {
         "type": "Project",
         "dependencies": {
-          "Arbor.Processing": "0.4.0",
+          "Arbor.Processing": "0.5.1-build.0",
           "JetBrains.Annotations": "2019.1.3",
           "Serilog": "2.9.0",
           "System.Collections.Immutable": "1.7.0"
@@ -1307,7 +1307,7 @@
         "type": "Project",
         "dependencies": {
           "Arbor.Docker": "1.0.0",
-          "Arbor.Processing": "0.4.0",
+          "Arbor.Processing": "0.5.1-build.0",
           "JetBrains.Annotations": "2019.1.3",
           "Serilog": "2.9.0",
           "Serilog.Sinks.XUnit": "1.0.21",
