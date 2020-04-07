@@ -45,7 +45,7 @@ namespace Arbor.Docker
             {
                 await Task.Delay(TimeSpan.FromSeconds(3));
 
-                await ShutdownContainersAsync(_containers, _logger);
+                await ShutdownContainersAsync(_containers, _logger, logAsDebug: true);
             }
 
             CancellationTokenSource?.Dispose();
@@ -64,7 +64,7 @@ namespace Arbor.Docker
             return new DockerContext(dockerTask, args, logger, cancellationTokenSource);
         }
 
-        private static async Task ShutDownAndRemoveAsync(string containerName, ILogger logger)
+        private static async Task ShutDownAndRemoveAsync(string containerName, ILogger logger, bool logAsDebug)
         {
             var args = new List<string> {"stop", containerName};
 
@@ -74,16 +74,16 @@ namespace Arbor.Docker
 
             var removeArgs = new List<string> {"rm", containerName};
 
-            var removeExitCode = await DockerHelper.RunDockerCommandsAsync(removeArgs, logger);
+            var removeExitCode = await DockerHelper.RunDockerCommandsAsync(removeArgs, logger, logAsDebug: logAsDebug);
 
             logger.Information("Remove exit code: {RemoveExitCode}", removeExitCode);
         }
 
-        private static async Task ShutdownContainersAsync(IReadOnlyCollection<ContainerArgs> containers, ILogger logger)
+        private static async Task ShutdownContainersAsync(IReadOnlyCollection<ContainerArgs> containers, ILogger logger, bool logAsDebug)
         {
             foreach (var container in containers)
             {
-                await ShutDownAndRemoveAsync(container.ContainerName, logger);
+                await ShutDownAndRemoveAsync(container.ContainerName, logger, logAsDebug);
             }
         }
 
@@ -92,11 +92,11 @@ namespace Arbor.Docker
             ILogger logger,
             CancellationToken cancellationToken)
         {
-            await ShutdownContainersAsync(containers, logger);
+            await ShutdownContainersAsync(containers, logger, true);
 
             var tasks = containers.Select(
                     containerArgs =>
-                        DockerHelper.RunDockerCommandsAsync(containerArgs.CombinedArgs(), logger, null,
+                        DockerHelper.RunDockerCommandsAsync(containerArgs.CombinedArgs(), logger, null, logAsDebug: false,
                             cancellationToken))
                 .ToImmutableArray();
 

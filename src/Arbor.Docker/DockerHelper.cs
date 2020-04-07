@@ -14,6 +14,7 @@ namespace Arbor.Docker
             IEnumerable<string> args,
             ILogger logger,
             string? dockerExePath = null,
+            bool logAsDebug = false,
             CancellationToken token = default)
         {
             dockerExePath ??= @"C:\Program Files\Docker\Docker\Resources\bin\docker.exe";
@@ -23,14 +24,20 @@ namespace Arbor.Docker
                 throw new InvalidOperationException($"The docker exe file '{dockerExePath}' does not exist");
             }
 
+            void LogDebug(string message, string category) => logger.Debug("{Message}", message);
+
+            void LogError(string message, string _) => logger.Error("{Message}", message);
+
+            void LogInformation(string message, string _) => logger.Information("{Message}", message);
+
             var exitCode = await ProcessRunner.ExecuteProcessAsync(
                 dockerExePath,
                 args,
-                (message, category) => logger.Information("{Message}", message),
-                (message, category) => logger.Error("{Message}", message),
-                debugAction: (message, category) => logger.Debug("{Message}", message),
+                standardOutLog: logAsDebug ? LogDebug : (CategoryLog) LogInformation,
+                standardErrorAction: logAsDebug ? (CategoryLog) LogDebug : LogError,
+                debugAction: LogDebug,
                 verboseAction: (message, category) => logger.Verbose("{Message}", message),
-                toolAction: (message, category) => logger.Debug("{Message}", message),
+                toolAction: LogDebug,
                 cancellationToken: token);
 
             if (!exitCode.IsSuccess)
