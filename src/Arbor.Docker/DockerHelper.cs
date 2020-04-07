@@ -24,17 +24,30 @@ namespace Arbor.Docker
                 throw new InvalidOperationException($"The docker exe file '{dockerExePath}' does not exist");
             }
 
-            void LogDebug(string message, string category) => logger.Debug("{Message}", message);
+            void LogDebug(string message, string category)
+            {
+                logger.Debug("{Message}", message);
+            }
 
-            void LogError(string message, string _) => logger.Error("{Message}", message);
+            void LogError(string message, string _)
+            {
+                logger.Error("{Message}", message);
+            }
 
-            void LogInformation(string message, string _) => logger.Information("{Message}", message);
+            void LogInformation(string message, string _)
+            {
+                logger.Information("{Message}", message);
+            }
 
             var exitCode = await ProcessRunner.ExecuteProcessAsync(
                 dockerExePath,
                 args,
-                standardOutLog: logAsDebug ? LogDebug : (CategoryLog) LogInformation,
-                standardErrorAction: logAsDebug ? (CategoryLog) LogDebug : LogError,
+                logAsDebug
+                    ? LogDebug
+                    : (CategoryLog)LogInformation,
+                logAsDebug
+                    ? (CategoryLog)LogDebug
+                    : LogError,
                 debugAction: LogDebug,
                 verboseAction: (message, category) => logger.Verbose("{Message}", message),
                 toolAction: LogDebug,

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Serilog;
 using Serilog.Core;
 
-namespace Arbor.Docker
+namespace Arbor.Docker.Xunit
 {
     internal static class DisposeExtensions
     {

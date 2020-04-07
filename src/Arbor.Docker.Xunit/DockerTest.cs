@@ -9,7 +9,7 @@ namespace Arbor.Docker.Xunit
     {
         private readonly ILogger _logger;
 
-        public DockerTest(ILogger logger) => _logger = logger;
+        protected DockerTest(ILogger logger) => _logger = logger;
 
         public DockerContext Context { get; private set; }
 

@@ -32,8 +32,10 @@ namespace Arbor.Docker
             ImageName = imageName;
             ContainerName = containerName;
             Ports = ports?.ToImmutableDictionary() ?? ImmutableDictionary<int, int>.Empty;
+
             EnvironmentVariables = environmentVariables?.ToImmutableDictionary() ??
                                    ImmutableDictionary<string, string>.Empty;
+
             Args = args?.ToImmutableArray() ?? ImmutableArray<string>.Empty;
         }
 

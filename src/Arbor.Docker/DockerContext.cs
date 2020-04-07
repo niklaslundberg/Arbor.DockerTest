@@ -10,9 +10,11 @@ namespace Arbor.Docker
 {
     public class DockerContext : IAsyncDisposable
     {
-        private readonly IReadOnlyCollection<ContainerArgs> _containers;
+        private readonly IReadOnlyCollection<ContainerArgs> _containerArgs;
 
         private readonly ILogger _logger;
+        private bool _isDisposing;
+        private bool _isDisposed;
 
         private DockerContext(
             Task task,
@@ -21,10 +23,18 @@ namespace Arbor.Docker
             CancellationTokenSource cancellationTokenSource)
         {
             ContainerTask = task;
-            _containers = containers;
+            _containerArgs = containers;
             _logger = logger;
             CancellationTokenSource = cancellationTokenSource;
+
+            Containers = _containerArgs
+                .Select(containerArgs => new ContainerInfo(containerArgs.ContainerName,
+                    containerArgs.ImageName, containerArgs.EnvironmentVariables.ToImmutableDictionary(),
+                    containerArgs.Ports))
+                .ToImmutableArray();
         }
+
+        public ImmutableArray<ContainerInfo> Containers { get; }
 
         public Task ContainerTask { get; }
 
@@ -32,7 +42,17 @@ namespace Arbor.Docker
 
         public async ValueTask DisposeAsync()
         {
-            CancellationTokenSource?.Cancel(false);
+            if (_isDisposed || _isDisposing)
+            {
+                return;
+            }
+
+            _isDisposing = true;
+
+            if (CancellationTokenSource?.IsCancellationRequested == false)
+            {
+                CancellationTokenSource.Cancel(false);
+            }
 
             try
             {
@@ -40,18 +60,22 @@ namespace Arbor.Docker
             }
             catch (TaskCanceledException)
             {
+                // ignore
             }
             finally
             {
                 await Task.Delay(TimeSpan.FromSeconds(3));
 
-                await ShutdownContainersAsync(_containers, _logger, logAsDebug: true);
+                await ShutdownContainersAsync(_containerArgs, _logger, true);
             }
 
             CancellationTokenSource?.Dispose();
+
+            _isDisposed = true;
+            _isDisposing = false;
         }
 
-        public static async Task<DockerContext> CreateContextAsync(
+        public static Task<DockerContext> CreateContextAsync(
             IReadOnlyCollection<ContainerArgs> args,
             ILogger logger)
         {
@@ -61,7 +85,9 @@ namespace Arbor.Docker
                 () => StartAllDockerContainers(args, logger, cancellationTokenSource.Token),
                 cancellationTokenSource.Token);
 
-            return new DockerContext(dockerTask, args, logger, cancellationTokenSource);
+            var dockerContext = new DockerContext(dockerTask, args, logger, cancellationTokenSource);
+
+            return Task.FromResult(dockerContext);
         }
 
         private static async Task ShutDownAndRemoveAsync(string containerName, ILogger logger, bool logAsDebug)
@@ -79,7 +105,9 @@ namespace Arbor.Docker
             logger.Information("Remove exit code: {RemoveExitCode}", removeExitCode);
         }
 
-        private static async Task ShutdownContainersAsync(IReadOnlyCollection<ContainerArgs> containers, ILogger logger, bool logAsDebug)
+        private static async Task ShutdownContainersAsync(IReadOnlyCollection<ContainerArgs> containers,
+            ILogger logger,
+            bool logAsDebug)
         {
             foreach (var container in containers)
             {
@@ -96,7 +124,7 @@ namespace Arbor.Docker
 
             var tasks = containers.Select(
                     containerArgs =>
-                        DockerHelper.RunDockerCommandsAsync(containerArgs.CombinedArgs(), logger, null, logAsDebug: false,
+                        DockerHelper.RunDockerCommandsAsync(containerArgs.CombinedArgs(), logger, null, false,
                             cancellationToken))
                 .ToImmutableArray();
 
