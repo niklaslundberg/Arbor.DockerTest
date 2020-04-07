@@ -14,19 +14,19 @@ namespace Arbor.Docker
 
         private readonly ILogger _logger;
 
-        private readonly Task _task;
-
         private DockerContext(
             Task task,
             IReadOnlyCollection<ContainerArgs> containers,
             ILogger logger,
             CancellationTokenSource cancellationTokenSource)
         {
-            _task = task;
+            ContainerTask = task;
             _containers = containers;
             _logger = logger;
             CancellationTokenSource = cancellationTokenSource;
         }
+
+        public Task ContainerTask { get; }
 
         public CancellationTokenSource CancellationTokenSource { get; }
 
@@ -36,7 +36,7 @@ namespace Arbor.Docker
 
             try
             {
-                await _task;
+                await ContainerTask;
             }
             catch (TaskCanceledException)
             {
@@ -96,7 +96,8 @@ namespace Arbor.Docker
 
             var tasks = containers.Select(
                     containerArgs =>
-                        DockerHelper.RunDockerCommandsAsync(containerArgs.CombinedArgs(), logger, null, cancellationToken))
+                        DockerHelper.RunDockerCommandsAsync(containerArgs.CombinedArgs(), logger, null,
+                            cancellationToken))
                 .ToImmutableArray();
 
             await Task.WhenAll(tasks.ToArray());
