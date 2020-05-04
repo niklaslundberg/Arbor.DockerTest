@@ -12,7 +12,7 @@ namespace Arbor.Docker
     {
         private readonly IReadOnlyCollection<ContainerArgs> _containerArgs;
 
-        private readonly ILogger _logger;
+        public ILogger Logger { get; }
         private bool _isDisposing;
         private bool _isDisposed;
 
@@ -24,7 +24,7 @@ namespace Arbor.Docker
         {
             ContainerTask = task;
             _containerArgs = containers;
-            _logger = logger;
+            Logger = logger;
             CancellationTokenSource = cancellationTokenSource;
 
             Containers = _containerArgs
@@ -66,7 +66,7 @@ namespace Arbor.Docker
             {
                 await Task.Delay(TimeSpan.FromSeconds(3));
 
-                await ShutdownContainersAsync(_containerArgs, _logger, true);
+                await ShutdownContainersAsync(_containerArgs, Logger, true);
             }
 
             CancellationTokenSource?.Dispose();
@@ -122,6 +122,8 @@ namespace Arbor.Docker
         {
             await ShutdownContainersAsync(containers, logger, true);
 
+            logger.Debug("All containers are shutdown");
+
             var tasks = containers.Select(
                     containerArgs =>
                         DockerHelper.RunDockerCommandsAsync(containerArgs.CombinedArgs(), logger, null, false,
@@ -129,6 +131,8 @@ namespace Arbor.Docker
                 .ToImmutableArray();
 
             await Task.WhenAll(tasks.ToArray());
+
+            logger.Debug("All containers are started");
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using MailKit.Net.Smtp;
 using MimeKit;
@@ -17,14 +18,12 @@ namespace Arbor.Docker.Xunit.Tests.Integration
 
         protected override async IAsyncEnumerable<ContainerArgs> AddContainersAsync()
         {
+            var portMappings = new[] {new PortMapping(new PortRange(3125), new PortRange(80)), MapSinglePort(2526, 25)};
             var smtp4Dev = new ContainerArgs(
                 "rnwood/smtp4dev:linux-amd64-v3",
                 "smtp4devtest",
-                new []
-                {
-                    new PortMapping(new PortRange(3125), new PortRange(80)),
-                    MapSinglePort(2526,25)
-                }
+                portMappings,
+                new Dictionary<string, string> {["ServerOptions:TlsMode"] = "None"}
             );
 
             yield return smtp4Dev;
@@ -39,11 +38,27 @@ namespace Arbor.Docker.Xunit.Tests.Integration
 
             message.Body = new TextPart("plain") {Text = "test"};
 
-            using var client = new SmtpClient();
-            await client.ConnectAsync("localhost", 2526, false);
+            Exception? exception = default;
+            try
+            {
+                using var client = new SmtpClient();
 
-            await client.SendAsync(message);
-            await client.DisconnectAsync(true);
+                await client.ConnectAsync("localhost", 2526, false);
+
+                await client.SendAsync(message);
+                await client.DisconnectAsync(true);
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            if (exception is { })
+            {
+                Context.Logger.Error(exception, "Failed to send email");
+            }
+
+            Assert.Null(exception);
         }
 
         [Fact]

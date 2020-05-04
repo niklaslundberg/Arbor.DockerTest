@@ -42,7 +42,7 @@ namespace Arbor.Docker
             }
 
             var exitCode = await ProcessRunner.ExecuteProcessAsync(
-                exePath.FullName.Wrap("\""),
+                exePath.FullName,
                 args,
                 logAsDebug
                     ? LogDebug

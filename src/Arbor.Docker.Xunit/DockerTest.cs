@@ -29,6 +29,8 @@ namespace Arbor.Docker.Xunit
             }
 
             Context = await DockerContext.CreateContextAsync(containers, _logger);
+
+            await Context.ContainerTask;
         }
 
         protected virtual async IAsyncEnumerable<ContainerArgs> AddContainersAsync()
