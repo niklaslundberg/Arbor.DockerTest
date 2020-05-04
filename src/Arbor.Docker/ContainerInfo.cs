@@ -9,7 +9,7 @@ namespace Arbor.Docker
         public ContainerInfo([NotNull] string name,
             [NotNull] string imageName,
             ImmutableDictionary<string, string> environmentVariables,
-            ImmutableDictionary<int, int> ports)
+            ImmutableArray<PortMapping> ports)
         {
             if (string.IsNullOrWhiteSpace(name))
             {
@@ -33,6 +33,6 @@ namespace Arbor.Docker
 
         public ImmutableDictionary<string, string> EnvironmentVariables { get; }
 
-        public ImmutableDictionary<int, int> Ports { get; }
+        public ImmutableArray<PortMapping> Ports { get; }
     }
 }

@@ -19,9 +19,11 @@ namespace Arbor.Docker
         {
             dockerExePath ??= @"C:\Program Files\Docker\Docker\Resources\bin\docker.exe";
 
-            if (!File.Exists(dockerExePath))
+            var exePath = new FileInfo(dockerExePath);
+
+            if (!exePath.Exists)
             {
-                throw new InvalidOperationException($"The docker exe file '{dockerExePath}' does not exist");
+                throw new InvalidOperationException($"The docker exe file '{exePath.FullName}' does not exist");
             }
 
             void LogDebug(string message, string category)
@@ -40,7 +42,7 @@ namespace Arbor.Docker
             }
 
             var exitCode = await ProcessRunner.ExecuteProcessAsync(
-                dockerExePath,
+                exePath.FullName.Wrap("\""),
                 args,
                 logAsDebug
                     ? LogDebug
@@ -51,6 +53,7 @@ namespace Arbor.Docker
                 debugAction: LogDebug,
                 verboseAction: (message, category) => logger.Verbose("{Message}", message),
                 toolAction: LogDebug,
+                formatArgs: false,
                 cancellationToken: token);
 
             if (!exitCode.IsSuccess)

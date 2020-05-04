@@ -12,7 +12,7 @@ namespace Arbor.Docker
         public ContainerArgs(
             [NotNull] string imageName,
             [NotNull] string containerName,
-            IDictionary<int, int>? ports = null,
+            IEnumerable<PortMapping>? ports = null,
             IDictionary<string, string>? environmentVariables = null,
             string[]? args = null,
             bool useExplicitPlatform = false)
@@ -31,7 +31,7 @@ namespace Arbor.Docker
 
             ImageName = imageName;
             ContainerName = containerName;
-            Ports = ports?.ToImmutableDictionary() ?? ImmutableDictionary<int, int>.Empty;
+            Ports = ports?.ToImmutableArray() ?? ImmutableArray<PortMapping>.Empty;
 
             EnvironmentVariables = environmentVariables?.ToImmutableDictionary() ??
                                    ImmutableDictionary<string, string>.Empty;
@@ -47,16 +47,24 @@ namespace Arbor.Docker
 
         public string ImageName { get; }
 
-        public ImmutableDictionary<int, int> Ports { get; }
+        public ImmutableArray<PortMapping> Ports { get; }
 
         public ImmutableArray<string> CombinedArgs()
         {
             var args = new List<string> {"run", "-d"};
 
-            foreach (var keyValuePair in Ports)
+            foreach (var range in Ports)
             {
                 args.Add("-p");
-                args.Add($"{keyValuePair.Key}:{keyValuePair.Value}");
+
+                if (range.HostPorts.End > range.HostPorts.Start)
+                {
+                    args.Add($"{range.HostPorts.Start}-{range.HostPorts.End}:{range.ContainerPorts.Start}-{range.ContainerPorts.End}");
+                }
+                else
+                {
+                    args.Add($"{range.HostPorts.Start}:{range.ContainerPorts.Start}");
+                }
             }
 
             foreach (var keyValuePair in EnvironmentVariables)

@@ -4,6 +4,7 @@ using MailKit.Net.Smtp;
 using MimeKit;
 using Xunit;
 using Xunit.Abstractions;
+using static Arbor.Docker.PortMapping;
 
 namespace Arbor.Docker.Xunit.Tests.Integration
 {
@@ -19,7 +20,11 @@ namespace Arbor.Docker.Xunit.Tests.Integration
             var smtp4Dev = new ContainerArgs(
                 "rnwood/smtp4dev:linux-amd64-v3",
                 "smtp4devtest",
-                new Dictionary<int, int> {[3125] = 80, [2526] = 25}
+                new []
+                {
+                    new PortMapping(new PortRange(3125), new PortRange(80)),
+                    MapSinglePort(2526,25)
+                }
             );
 
             yield return smtp4Dev;
