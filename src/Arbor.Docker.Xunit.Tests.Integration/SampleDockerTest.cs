@@ -29,7 +29,8 @@ namespace Arbor.Docker.Xunit.Tests.Integration
             yield return smtp4Dev;
         }
 
-        private async Task SendMail()
+        [Fact]
+        public async Task SendMail()
         {
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("test@test.local"));
@@ -42,6 +43,8 @@ namespace Arbor.Docker.Xunit.Tests.Integration
             try
             {
                 using var client = new SmtpClient();
+
+                client.AuthenticationMechanisms.Remove("XOAUTH2");
 
                 await client.ConnectAsync("localhost", 2526, false);
 
@@ -60,8 +63,5 @@ namespace Arbor.Docker.Xunit.Tests.Integration
 
             Assert.Null(exception);
         }
-
-        [Fact]
-        public async Task Do() => await SendMail();
     }
 }
