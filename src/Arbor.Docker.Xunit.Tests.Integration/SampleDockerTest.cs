@@ -29,7 +29,7 @@ namespace Arbor.Docker.Xunit.Tests.Integration
             yield return smtp4Dev;
         }
 
-        [Fact]
+        [Fact(Skip = "Environment dependent")]
         public async Task SendMail()
         {
             var message = new MimeMessage();
