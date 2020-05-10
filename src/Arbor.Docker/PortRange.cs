@@ -20,7 +20,7 @@ namespace Arbor.Docker
                 throw new ArgumentOutOfRangeException(nameof(end), "End must be greater than 0");
             }
 
-            if (end > start)
+            if (end < start)
             {
                 throw new ArgumentOutOfRangeException(nameof(end), "End must be greater or equal to start");
             }
