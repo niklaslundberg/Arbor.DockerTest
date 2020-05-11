@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Linq;
 using JetBrains.Annotations;
 
 namespace Arbor.Docker
@@ -15,6 +16,7 @@ namespace Arbor.Docker
             IEnumerable<PortMapping>? ports = null,
             IDictionary<string, string>? environmentVariables = null,
             string[]? args = null,
+            string[]? entryPoint = null,
             bool useExplicitPlatform = false)
         {
             if (string.IsNullOrWhiteSpace(imageName))
@@ -37,7 +39,10 @@ namespace Arbor.Docker
                                    ImmutableDictionary<string, string>.Empty;
 
             Args = args?.ToImmutableArray() ?? ImmutableArray<string>.Empty;
+            EntryPoint = entryPoint?.ToImmutableArray() ?? ImmutableArray<string>.Empty;
         }
+
+        public ImmutableArray<string> EntryPoint { get; set; }
 
         public ImmutableArray<string> Args { get; }
 
@@ -49,6 +54,11 @@ namespace Arbor.Docker
 
         public ImmutableArray<PortMapping> Ports { get; }
 
+        public ImmutableArray<string> StartArguments()
+        {
+            return CombinedArgs().Concat(EntryPoint).ToImmutableArray();
+        }
+
         public ImmutableArray<string> CombinedArgs()
         {
             var args = new List<string> {"run", "-d"};
@@ -59,7 +69,8 @@ namespace Arbor.Docker
 
                 if (range.HostPorts.End > range.HostPorts.Start)
                 {
-                    args.Add($"{range.HostPorts.Start}-{range.HostPorts.End}:{range.ContainerPorts.Start}-{range.ContainerPorts.End}");
+                    args.Add(
+                        $"{range.HostPorts.Start}-{range.HostPorts.End}:{range.ContainerPorts.Start}-{range.ContainerPorts.End}");
                 }
                 else
                 {
