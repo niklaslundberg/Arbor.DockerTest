@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Arbor.Processing;
@@ -17,7 +18,13 @@ namespace Arbor.Docker
             bool logAsDebug = false,
             CancellationToken token = default)
         {
-            dockerExePath ??= @"C:\Program Files\Docker\Docker\Resources\bin\docker.exe";
+            var candidatePaths = new List<string>(2)
+            {
+                @"C:\Program Files\Docker\docker.exe",
+                @"C:\Program Files\Docker\Docker\Resources\bin\docker.exe"
+            };
+
+            dockerExePath ??= candidatePaths.FirstOrDefault(File.Exists);
 
             var exePath = new FileInfo(dockerExePath);
 
