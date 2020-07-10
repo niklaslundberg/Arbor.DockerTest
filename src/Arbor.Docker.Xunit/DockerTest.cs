@@ -9,6 +9,10 @@ namespace Arbor.Docker.Xunit
     {
         private readonly ILogger _logger;
 
+        /// <summary>
+        /// Will dispose the provided logger on this async disposal
+        /// </summary>
+        /// <param name="logger"></param>
         protected DockerTest(ILogger logger) => _logger = logger;
 
         public DockerContext Context { get; private set; }
