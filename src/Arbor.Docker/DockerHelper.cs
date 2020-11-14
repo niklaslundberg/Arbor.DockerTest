@@ -21,10 +21,16 @@ namespace Arbor.Docker
             var candidatePaths = new List<string>(2)
             {
                 @"C:\Program Files\Docker\docker.exe",
-                @"C:\Program Files\Docker\Docker\Resources\bin\docker.exe"
+                @"C:\Program Files\Docker\Docker\Resources\bin\docker.exe",
+                @"C:\ProgramData\DockerDesktop\version-bin\docker.exe"
             };
 
             dockerExePath ??= candidatePaths.FirstOrDefault(File.Exists);
+
+            if (dockerExePath is null)
+            {
+                throw new InvalidOperationException("Could not find docker.exe");
+            }
 
             var exePath = new FileInfo(dockerExePath);
 
