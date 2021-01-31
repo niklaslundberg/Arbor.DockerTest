@@ -3,23 +3,26 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29503.13
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Arbor.DockerTest", "src\Arbor.DockerTest\Arbor.DockerTest.csproj", "{51F05A76-5C7E-4DB4-A523-A06786EAD76C}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Arbor.DockerTest.Tests.Integration", "src\Arbor.DockerTest.Tests.Integration\Arbor.DockerTest.Tests.Integration.csproj", "{88E5BF7F-34EC-43CF-B6B2-B43233AF31C4}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{88B7793B-E601-4526-906E-CEE63F7AFCA1}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
+		build\build.bat = build\build.bat
 		.github\workflows\ci.yml = .github\workflows\ci.yml
 		Directory.Build.props = Directory.Build.props
+		global.json = global.json
 		LICENSE.txt = LICENSE.txt
+		nuget.config = nuget.config
 		README.md = README.md
 		version.json = version.json
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arbor.Docker", "src\Arbor.Docker\Arbor.Docker.csproj", "{7856411C-5B12-4DDD-8982-AB74FFB40EF7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Arbor.Docker", "src\Arbor.Docker\Arbor.Docker.csproj", "{7856411C-5B12-4DDD-8982-AB74FFB40EF7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Arbor.Docker.Xunit", "src\Arbor.Docker.Xunit\Arbor.Docker.Xunit.csproj", "{174C6811-103D-42CD-AF85-1EE3F5150D20}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Arbor.Docker.Xunit.Tests.Integration", "src\Arbor.Docker.Xunit.Tests.Integration\Arbor.Docker.Xunit.Tests.Integration.csproj", "{FE4B0815-3890-4162-9236-07B3BAF9F2E0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,18 +30,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{51F05A76-5C7E-4DB4-A523-A06786EAD76C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{51F05A76-5C7E-4DB4-A523-A06786EAD76C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{51F05A76-5C7E-4DB4-A523-A06786EAD76C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{51F05A76-5C7E-4DB4-A523-A06786EAD76C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{88E5BF7F-34EC-43CF-B6B2-B43233AF31C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{88E5BF7F-34EC-43CF-B6B2-B43233AF31C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{88E5BF7F-34EC-43CF-B6B2-B43233AF31C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{88E5BF7F-34EC-43CF-B6B2-B43233AF31C4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7856411C-5B12-4DDD-8982-AB74FFB40EF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7856411C-5B12-4DDD-8982-AB74FFB40EF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7856411C-5B12-4DDD-8982-AB74FFB40EF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7856411C-5B12-4DDD-8982-AB74FFB40EF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{174C6811-103D-42CD-AF85-1EE3F5150D20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{174C6811-103D-42CD-AF85-1EE3F5150D20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{174C6811-103D-42CD-AF85-1EE3F5150D20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{174C6811-103D-42CD-AF85-1EE3F5150D20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE4B0815-3890-4162-9236-07B3BAF9F2E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE4B0815-3890-4162-9236-07B3BAF9F2E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE4B0815-3890-4162-9236-07B3BAF9F2E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE4B0815-3890-4162-9236-07B3BAF9F2E0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,16 +1,19 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Arbor.Docker;
 using Serilog;
 using Xunit;
 
-namespace Arbor.DockerTest
+namespace Arbor.Docker.Xunit
 {
     public abstract class DockerTest : IAsyncLifetime
     {
         private readonly ILogger _logger;
 
-        public DockerTest(ILogger logger) => _logger = logger;
+        /// <summary>
+        /// Will dispose the provided logger on this async disposal
+        /// </summary>
+        /// <param name="logger"></param>
+        protected DockerTest(ILogger logger) => _logger = logger;
 
         public DockerContext Context { get; private set; }
 
@@ -30,6 +33,8 @@ namespace Arbor.DockerTest
             }
 
             Context = await DockerContext.CreateContextAsync(containers, _logger);
+
+            await Context.ContainerTask;
         }
 
         protected virtual async IAsyncEnumerable<ContainerArgs> AddContainersAsync()

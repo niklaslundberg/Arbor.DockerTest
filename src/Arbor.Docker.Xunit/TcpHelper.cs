@@ -3,13 +3,14 @@ using System.Collections.Immutable;
 using System.Linq;
 using System.Net.NetworkInformation;
 
-namespace Arbor.Docker
+namespace Arbor.Docker.Xunit
 {
     public static class TcpHelper
     {
         public static int GetAvailablePort(int startingPort)
         {
             ushort maxValue = ushort.MaxValue;
+
             if (startingPort < 0 || startingPort > maxValue)
             {
                 throw new ArgumentOutOfRangeException(nameof(startingPort));

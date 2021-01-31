@@ -1,18 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Linq;
 using JetBrains.Annotations;
 
 namespace Arbor.Docker
 {
     public class ContainerArgs
     {
+        private readonly bool _useExplicitPlatform;
+
         public ContainerArgs(
             [NotNull] string imageName,
             [NotNull] string containerName,
-            IDictionary<int, int> ports = null,
-            IDictionary<string, string> environmentVariables = null,
-            string[] args = null)
+            IEnumerable<PortMapping>? ports = null,
+            IDictionary<string, string>? environmentVariables = null,
+            string[]? args = null,
+            string[]? entryPoint = null,
+            bool useExplicitPlatform = false)
         {
             if (string.IsNullOrWhiteSpace(imageName))
             {
@@ -24,13 +29,20 @@ namespace Arbor.Docker
                 throw new ArgumentException("Value cannot be null or whitespace.", nameof(containerName));
             }
 
+            _useExplicitPlatform = useExplicitPlatform;
+
             ImageName = imageName;
             ContainerName = containerName;
-            Ports = ports?.ToImmutableDictionary() ?? ImmutableDictionary<int, int>.Empty;
+            Ports = ports?.ToImmutableArray() ?? ImmutableArray<PortMapping>.Empty;
+
             EnvironmentVariables = environmentVariables?.ToImmutableDictionary() ??
                                    ImmutableDictionary<string, string>.Empty;
+
             Args = args?.ToImmutableArray() ?? ImmutableArray<string>.Empty;
+            EntryPoint = entryPoint?.ToImmutableArray() ?? ImmutableArray<string>.Empty;
         }
+
+        public ImmutableArray<string> EntryPoint { get; set; }
 
         public ImmutableArray<string> Args { get; }
 
@@ -40,16 +52,30 @@ namespace Arbor.Docker
 
         public string ImageName { get; }
 
-        public ImmutableDictionary<int, int> Ports { get; }
+        public ImmutableArray<PortMapping> Ports { get; }
+
+        public ImmutableArray<string> StartArguments()
+        {
+            return CombinedArgs().Concat(EntryPoint).ToImmutableArray();
+        }
 
         public ImmutableArray<string> CombinedArgs()
         {
             var args = new List<string> {"run", "-d"};
 
-            foreach (var keyValuePair in Ports)
+            foreach (var range in Ports)
             {
                 args.Add("-p");
-                args.Add($"{keyValuePair.Key}:{keyValuePair.Value}");
+
+                if (range.HostPorts.End > range.HostPorts.Start)
+                {
+                    args.Add(
+                        $"{range.HostPorts.Start}-{range.HostPorts.End}:{range.ContainerPorts.Start}-{range.ContainerPorts.End}");
+                }
+                else
+                {
+                    args.Add($"{range.HostPorts.Start}:{range.ContainerPorts.Start}");
+                }
             }
 
             foreach (var keyValuePair in EnvironmentVariables)
@@ -66,7 +92,10 @@ namespace Arbor.Docker
             args.Add("--name");
             args.Add(ContainerName);
 
-            args.Add("--platform=linux");
+            if (_useExplicitPlatform)
+            {
+                args.Add("--platform=linux");
+            }
 
             args.Add(ImageName);
 
