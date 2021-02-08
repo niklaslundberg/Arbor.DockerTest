@@ -20,7 +20,7 @@
     <iconUrl>https://nuget.org/Content/Images/packageDefaultIcon-50x50.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="expression">MIT</license>
-    <copyright>Copyright Niklas Lundberg 2019-2020</copyright>
+    <copyright>Copyright Niklas Lundberg 2019-2021</copyright>
   <dependencies>
     <group targetFramework="net5.0">
       <dependency id="Arbor.Docker" version="[$version$]" />
