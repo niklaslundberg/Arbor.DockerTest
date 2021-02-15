@@ -19,8 +19,8 @@ namespace Arbor.Docker.Xunit
 
         public virtual async Task DisposeAsync()
         {
-            await Context.SafeDisposeAsync();
-            await _logger.SafeDisposeAsync();
+            await Context.SafeDisposeAsync().ConfigureAwait(false);
+            await _logger.SafeDisposeAsync().ConfigureAwait(false);
         }
 
         public virtual async Task InitializeAsync()
@@ -32,9 +32,9 @@ namespace Arbor.Docker.Xunit
                 containers.Add(container);
             }
 
-            Context = await DockerContext.CreateContextAsync(containers, _logger);
+            Context = await DockerContext.CreateContextAsync(containers, _logger).ConfigureAwait(false);
 
-            await Context.ContainerTask;
+            await Context.ContainerTask.ConfigureAwait(false);
         }
 
         protected virtual async IAsyncEnumerable<ContainerArgs> AddContainersAsync()

@@ -53,8 +53,8 @@ namespace Arbor.Docker.Xunit.Tests.Integration
         [Fact]
         public void MultiplePortRangeMapping()
         {
-            PortRange hostPorts = new PortRange(8080, 8082);
-            PortRange containerPorts = new PortRange(80, 82);
+            var hostPorts = new PortRange(8080, 8082);
+            var containerPorts = new PortRange(80, 82);
             var mapping = new PortMapping(hostPorts, containerPorts);
 
             Assert.Equal(3, mapping.HostPorts.Length);

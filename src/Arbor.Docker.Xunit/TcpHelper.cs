@@ -9,7 +9,7 @@ namespace Arbor.Docker.Xunit
     {
         public static int GetAvailablePort(int startingPort)
         {
-            ushort maxValue = ushort.MaxValue;
+            const ushort maxValue = ushort.MaxValue;
 
             if (startingPort < 0 || startingPort > maxValue)
             {

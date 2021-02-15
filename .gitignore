@@ -193,3 +193,4 @@ _patchedAssemblyInfos
 *.ncrunchproject
 **/BenchmarkDotNet.Artifacts/**/*
 !test/Arbor.KVConfiguration.Tests.Integration/config.user
+*.ncrunchsolution

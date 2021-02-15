@@ -27,9 +27,8 @@ namespace Arbor.Docker
 
             Start = start;
             End = end;
-            Length = (end - start) + 1;
+            Length = end - start + 1;
         }
-
 
         public PortRange(int start)
         {

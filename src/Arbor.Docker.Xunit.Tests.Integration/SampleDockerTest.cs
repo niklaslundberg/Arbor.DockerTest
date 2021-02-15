@@ -19,22 +19,20 @@ namespace Arbor.Docker.Xunit.Tests.Integration
         protected override async IAsyncEnumerable<ContainerArgs> AddContainersAsync()
         {
             var portMappings = new[] {new PortMapping(new PortRange(3125), new PortRange(80)), MapSinglePort(2526, 25)};
-            var smtp4Dev = new ContainerArgs(
+            yield return new ContainerArgs(
                 "rnwood/smtp4dev:linux-amd64-v3",
                 "smtp4devtest",
                 portMappings,
                 new Dictionary<string, string> {["ServerOptions:TlsMode"] = "None"}
             );
-
-            yield return smtp4Dev;
         }
 
         [Fact(Skip = "Environment dependent")]
         public async Task SendMail()
         {
             var message = new MimeMessage();
-            message.From.Add(new MailboxAddress("test@test.local"));
-            message.To.Add(new MailboxAddress("test@test.local"));
+            message.From.Add(MailboxAddress.Parse("test@test.local"));
+            message.To.Add(MailboxAddress.Parse("test@test.local"));
             message.Subject = "testsubject";
 
             message.Body = new TextPart("plain") {Text = "test"};
@@ -46,10 +44,10 @@ namespace Arbor.Docker.Xunit.Tests.Integration
 
                 client.AuthenticationMechanisms.Remove("XOAUTH2");
 
-                await client.ConnectAsync("localhost", 2526, false);
+                await client.ConnectAsync("localhost", 2526, false).ConfigureAwait(false);
 
-                await client.SendAsync(message);
-                await client.DisconnectAsync(true);
+                await client.SendAsync(message).ConfigureAwait(false);
+                await client.DisconnectAsync(true).ConfigureAwait(false);
             }
             catch (Exception ex)
             {

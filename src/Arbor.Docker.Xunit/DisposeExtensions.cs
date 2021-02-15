@@ -20,7 +20,7 @@ namespace Arbor.Docker.Xunit
             {
                 try
                 {
-                    await asyncDisposable.DisposeAsync();
+                    await asyncDisposable.DisposeAsync().ConfigureAwait(false);
 
                     return;
                 }

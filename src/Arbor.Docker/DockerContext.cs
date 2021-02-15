@@ -8,7 +8,7 @@ using Serilog;
 
 namespace Arbor.Docker
 {
-    public class DockerContext : IAsyncDisposable
+    public sealed class DockerContext : IAsyncDisposable
     {
         private readonly IReadOnlyCollection<ContainerArgs> _containerArgs;
 
@@ -29,7 +29,7 @@ namespace Arbor.Docker
 
             Containers = _containerArgs
                 .Select(containerArgs => new ContainerInfo(containerArgs.ContainerName,
-                    containerArgs.ImageName, containerArgs.EnvironmentVariables.ToImmutableDictionary(),
+                    containerArgs.ImageName, containerArgs.EnvironmentVariables,
                     containerArgs.Ports))
                 .ToImmutableArray();
         }
@@ -56,7 +56,7 @@ namespace Arbor.Docker
 
             try
             {
-                await ContainerTask;
+                await ContainerTask.ConfigureAwait(false);
             }
             catch (TaskCanceledException)
             {
@@ -64,9 +64,9 @@ namespace Arbor.Docker
             }
             finally
             {
-                await Task.Delay(TimeSpan.FromSeconds(3));
+                await Task.Delay(TimeSpan.FromSeconds(3)).ConfigureAwait(false);
 
-                await ShutdownContainersAsync(_containerArgs, Logger, true);
+                await ShutdownContainersAsync(_containerArgs, Logger, true).ConfigureAwait(false);
             }
 
             CancellationTokenSource?.Dispose();
@@ -94,13 +94,13 @@ namespace Arbor.Docker
         {
             var args = new List<string> {"stop", containerName};
 
-            var stopExitCode = await DockerHelper.RunDockerCommandsAsync(args, logger);
+            var stopExitCode = await DockerHelper.RunDockerCommandsAsync(args, logger).ConfigureAwait(false);
 
             logger.Information("Stop exit code: {StopExitCode}", stopExitCode);
 
             var removeArgs = new List<string> {"rm", containerName};
 
-            var removeExitCode = await DockerHelper.RunDockerCommandsAsync(removeArgs, logger, logAsDebug: logAsDebug);
+            var removeExitCode = await DockerHelper.RunDockerCommandsAsync(removeArgs, logger, logAsDebug: logAsDebug).ConfigureAwait(false);
 
             logger.Information("Remove exit code: {RemoveExitCode}", removeExitCode);
         }
@@ -111,7 +111,7 @@ namespace Arbor.Docker
         {
             foreach (var container in containers)
             {
-                await ShutDownAndRemoveAsync(container.ContainerName, logger, logAsDebug);
+                await ShutDownAndRemoveAsync(container.ContainerName, logger, logAsDebug).ConfigureAwait(false);
             }
         }
 
@@ -120,7 +120,7 @@ namespace Arbor.Docker
             ILogger logger,
             CancellationToken cancellationToken)
         {
-            await ShutdownContainersAsync(containers, logger, true);
+            await ShutdownContainersAsync(containers, logger, true).ConfigureAwait(false);
 
             logger.Debug("All containers are shutdown");
 
@@ -130,7 +130,7 @@ namespace Arbor.Docker
                             cancellationToken))
                 .ToImmutableArray();
 
-            await Task.WhenAll(tasks.ToArray());
+            await Task.WhenAll(tasks.ToArray()).ConfigureAwait(false);
 
             logger.Debug("All containers are started");
         }

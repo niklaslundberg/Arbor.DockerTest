@@ -39,7 +39,7 @@ namespace Arbor.Docker
                 throw new InvalidOperationException($"The docker exe file '{exePath.FullName}' does not exist");
             }
 
-            void LogDebug(string message, string category)
+            void LogDebug(string message, string _)
             {
                 logger.Debug("{Message}", message);
             }
@@ -64,10 +64,10 @@ namespace Arbor.Docker
                     ? (CategoryLog)LogDebug
                     : LogError,
                 debugAction: LogDebug,
-                verboseAction: (message, category) => logger.Verbose("{Message}", message),
+                verboseAction: (message, _) => logger.Verbose("{Message}", message),
                 toolAction: LogDebug,
                 formatArgs: false,
-                cancellationToken: token);
+                cancellationToken: token).ConfigureAwait(false);
 
             if (!exitCode.IsSuccess)
             {

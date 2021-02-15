@@ -42,7 +42,7 @@ namespace Arbor.Docker
             EntryPoint = entryPoint?.ToImmutableArray() ?? ImmutableArray<string>.Empty;
         }
 
-        public ImmutableArray<string> EntryPoint { get; set; }
+        public ImmutableArray<string> EntryPoint { get; }
 
         public ImmutableArray<string> Args { get; }
 
@@ -54,10 +54,7 @@ namespace Arbor.Docker
 
         public ImmutableArray<PortMapping> Ports { get; }
 
-        public ImmutableArray<string> StartArguments()
-        {
-            return CombinedArgs().Concat(EntryPoint).ToImmutableArray();
-        }
+        public ImmutableArray<string> StartArguments() => CombinedArgs().Concat(EntryPoint).ToImmutableArray();
 
         public ImmutableArray<string> CombinedArgs()
         {
