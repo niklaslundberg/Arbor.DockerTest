@@ -194,3 +194,4 @@ _patchedAssemblyInfos
 **/BenchmarkDotNet.Artifacts/**/*
 !test/Arbor.KVConfiguration.Tests.Integration/config.user
 *.ncrunchsolution
+*.log
