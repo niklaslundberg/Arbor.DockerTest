@@ -5,7 +5,7 @@ namespace Arbor.Docker
     public readonly struct PortMapping
     {
         public static PortMapping MapSinglePort(int hostPort, int containerPort) =>
-            new PortMapping(new PortRange(hostPort), new PortRange(containerPort));
+            new(new PortRange(hostPort), new PortRange(containerPort));
 
         public PortMapping(PortRange hostPorts, PortRange containerPorts)
         {
