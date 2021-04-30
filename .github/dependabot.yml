@@ -6,33 +6,3 @@ updates:
     interval: daily
     time: "04:00"
   open-pull-requests-limit: 10
-  ignore:
-  - dependency-name: MailKit
-    versions:
-    - 2.10.1
-    - 2.11.0
-  - dependency-name: Microsoft.NET.Test.Sdk
-    versions:
-    - 16.8.3
-    - 16.9.1
-  - dependency-name: Microsoft.Extensions.Caching.StackExchangeRedis
-    versions:
-    - 5.0.1
-  - dependency-name: Arbor.Processing
-    versions:
-    - 0.6.0
-  - dependency-name: JetBrains.Annotations
-    versions:
-    - 2020.3.0
-  - dependency-name: xunit.runner.visualstudio
-    versions:
-    - 2.4.3
-  - dependency-name: Serilog
-    versions:
-    - 2.10.0
-  - dependency-name: Serilog.Sinks.XUnit
-    versions:
-    - 2.0.4
-  - dependency-name: System.Collections.Immutable
-    versions:
-    - 5.0.0
