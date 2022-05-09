@@ -54,7 +54,7 @@ namespace Arbor.Docker.Xunit.Tests.Integration
                 exception = ex;
             }
 
-            if (exception is { })
+            if (exception is { } && Context is { })
             {
                 Context.Logger.Error(exception, "Failed to send email");
             }

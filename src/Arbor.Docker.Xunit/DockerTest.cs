@@ -15,11 +15,15 @@ namespace Arbor.Docker.Xunit
         /// <param name="logger"></param>
         protected DockerTest(ILogger logger) => _logger = logger;
 
-        public DockerContext Context { get; private set; }
+        public DockerContext? Context { get; private set; }
 
         public virtual async Task DisposeAsync()
         {
-            await Context.SafeDisposeAsync().ConfigureAwait(false);
+            if (Context is { })
+            {
+                await Context.SafeDisposeAsync().ConfigureAwait(false);
+            }
+
             await _logger.SafeDisposeAsync().ConfigureAwait(false);
         }
 
