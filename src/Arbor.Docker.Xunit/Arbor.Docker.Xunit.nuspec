@@ -20,7 +20,7 @@
     <iconUrl>https://nuget.org/Content/Images/packageDefaultIcon-50x50.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="expression">MIT</license>
-    <copyright>Copyright Niklas Lundberg 2019-2021</copyright>
+    <copyright>Copyright Niklas Lundberg 2019-2022</copyright>
   <dependencies>
     <group targetFramework="net5.0">
       <dependency id="Arbor.Docker" version="[0.6.0,2.0.0)" />
@@ -33,6 +33,6 @@
   <tags></tags>
   </metadata>
   <files>
-    <file src="bin\$configuration$\net5.0\Arbor.Docker*" target="lib\net5.0\" />
+    <file src="bin\$configuration$\net6.0\Arbor.Docker*" target="lib\net6.0\" />
   </files>
 </package>
