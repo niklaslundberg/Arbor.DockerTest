@@ -28,7 +28,7 @@ namespace Arbor.Docker.Xunit.Tests.Integration
             yield return redis;
         }
 
-        [Fact(Skip = "Environment dependent")]
+        [Fact]
         public async Task SetAndGetFromDistributedCache()
         {
             var redisCacheOptions = new RedisCacheOptions {Configuration = "localhost:36379"};
