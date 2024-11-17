@@ -20,7 +20,7 @@ namespace Arbor.Docker.Xunit.Tests.Integration
         {
             var portMappings = new[] {new PortMapping(new PortRange(3125), new PortRange(80)), MapSinglePort(12526, 25)};
             yield return new ContainerArgs(
-                "rnwood/smtp4dev:linux-amd64-v3",
+                "rnwood/smtp4dev:v3",
                 "smtp4devtest",
                 portMappings,
                 new Dictionary<string, string> {["ServerOptions:TlsMode"] = "None"}

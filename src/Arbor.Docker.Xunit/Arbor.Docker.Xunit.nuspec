@@ -20,13 +20,13 @@
     <iconUrl>https://nuget.org/Content/Images/packageDefaultIcon-50x50.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="expression">MIT</license>
-    <copyright>Copyright Niklas Lundberg 2019-2022</copyright>
+    <copyright>Copyright Niklas Lundberg 2019-2024</copyright>
   <dependencies>
-    <group targetFramework="net5.0">
-      <dependency id="Arbor.Docker" version="[0.6.0,2.0.0)" />
-      <dependency id="XUnit" version="[2.4.1, 3.0.0)" />
-      <dependency id="Serilog.Sinks.XUnit" version="[3.0.3, 4.0.0)" />
-      <dependency id="Serilog" version="[2.11.0, 3.0.0)" />
+    <group targetFramework="net8.0">
+      <dependency id="Arbor.Docker" version="[0.11.0,2.0.0)" />
+      <dependency id="XUnit" version="[2.9.2, 3.0.0)" />
+      <dependency id="Serilog.Sinks.XUnit" version="[3.0.5, 4.0.0)" />
+      <dependency id="Serilog" version="[4.1.0, 3.0.0)" />
     </group>
   </dependencies>
   <references></references>
