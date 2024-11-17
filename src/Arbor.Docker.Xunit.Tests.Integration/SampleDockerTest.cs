@@ -27,6 +27,7 @@ namespace Arbor.Docker.Xunit.Tests.Integration
             );
         }
 
+        [Trait("Category", "Integration")]
         [Fact]
         public async Task SendMail()
         {

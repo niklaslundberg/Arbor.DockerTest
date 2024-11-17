@@ -28,6 +28,7 @@ namespace Arbor.Docker.Xunit.Tests.Integration
             yield return redis;
         }
 
+        [Trait("Category", "Integration")]
         [Fact]
         public async Task SetAndGetFromDistributedCache()
         {
