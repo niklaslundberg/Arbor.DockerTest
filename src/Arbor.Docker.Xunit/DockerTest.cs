@@ -5,6 +5,7 @@ using Xunit;
 
 namespace Arbor.Docker.Xunit
 {
+    [Collection(nameof(DockerTest))]
     public abstract class DockerTest : IAsyncLifetime
     {
         private readonly ILogger _logger;
