@@ -18,16 +18,17 @@ namespace Arbor.Docker.Xunit.Tests.Integration
 
         protected override async IAsyncEnumerable<ContainerArgs> AddContainersAsync()
         {
-            var portMappings = new[] {new PortMapping(new PortRange(3125), new PortRange(80)), MapSinglePort(2526, 25)};
+            var portMappings = new[] {new PortMapping(new PortRange(3125), new PortRange(80)), MapSinglePort(12526, 25)};
             yield return new ContainerArgs(
-                "rnwood/smtp4dev:linux-amd64-v3",
+                "rnwood/smtp4dev:v3",
                 "smtp4devtest",
                 portMappings,
                 new Dictionary<string, string> {["ServerOptions:TlsMode"] = "None"}
             );
         }
 
-        [Fact(Skip = "Environment dependent")]
+        [Trait("Category", "Integration")]
+        [Fact]
         public async Task SendMail()
         {
             var message = new MimeMessage();
@@ -44,7 +45,7 @@ namespace Arbor.Docker.Xunit.Tests.Integration
 
                 client.AuthenticationMechanisms.Remove("XOAUTH2");
 
-                await client.ConnectAsync("localhost", 2526, false).ConfigureAwait(false);
+                await client.ConnectAsync("localhost", 12526, false).ConfigureAwait(false);
 
                 await client.SendAsync(message).ConfigureAwait(false);
                 await client.DisconnectAsync(true).ConfigureAwait(false);
